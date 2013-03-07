@@ -12,6 +12,7 @@
         <parameter key="mz_postmark.use_ssl" />
         <parameter key="mz_postmark.postmark.client.class">MZ\PostmarkBundle\Postmark\HTTPClient</parameter>
         <parameter key="mz_postmark.postmark.message.class">MZ\PostmarkBundle\Postmark\Message</parameter>
+        <parameter key="mz_postmark.postmark.fosuserbundlemailer.class">MZ\PostmarkBundle\Postmark\FOSUserBundleMailer</parameter>
     </parameters>
 
     <services>
@@ -24,6 +25,16 @@
             <argument>%mz_postmark.from_email%</argument>
             <argument>%mz_postmark.from_name%</argument>
             <argument>%mz_postmark.use_ssl%</argument>
+        </service>
+
+        <service id="postmark.fosuserbundlemailer" class="%mz_postmark.postmark.fosuserbundlemailer.class%">
+            <argument type="service" id="router" />
+            <argument type="service" id="templating" />
+            <argument type="service" id="postmark.message" />
+            <argument type="collection">
+                <argument key="confirmation.template">%fos_user.registration.confirmation.template%</argument>
+                <argument key="resetting_password.template">%fos_user.resetting.email.template%</argument>
+            </argument>
         </service>
     </services>
 
