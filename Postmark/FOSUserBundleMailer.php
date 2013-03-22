@@ -72,7 +72,8 @@ class FOSUserBundleMailer implements MailerInterface
 
 		$url = $this->router->generate('fos_user_registration_confirm', array('token' => $user->getConfirmationToken()), true);
 		$rendered = $this->templating->render($template, array(
-				'confirmationUrl' =>  $url
+				'confirmationUrl' =>  $url,
+				'user' => $user
 		));
 
 		$this->sendEmailMessage($rendered, $user->getEmail());
@@ -87,7 +88,8 @@ class FOSUserBundleMailer implements MailerInterface
 
 		$url = $this->router->generate('fos_user_resetting_reset', array('token' => $user->getConfirmationToken()), true);
 		$rendered = $this->templating->render($template, array(
-			'confirmationUrl' => $url
+			'confirmationUrl' => $url,
+			'user' => $user
 		));
 
 		$this->sendEmailMessage($rendered, $user->getEmail());
